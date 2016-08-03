@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd         
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd         
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd         
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd         
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+	<context:property-placeholder location="classpath*:META-INF/spring/*.properties" />
+	<context:spring-configured />
+	<context:component-scan base-package="com.mallbiz">
+		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
+	</context:component-scan>
+	
+	<import resource="webmvc-config.xml"/>
+	
+    <!-- 要引用的服务 -->
+    <!-- -->
+    <dubbo:reference interface="com.mallbiz.api.TestRegistryService" id="testRegistryService" >
+        <dubbo:method name="hello" async="false" />
+    </dubbo:reference> 
+    
+    <!-- 要暴露的服务接口 -->
+    <!-- <dubbo:service interface="com.mallbiz.api.TestRegistryService" ref="testRegistryServiceImpl"
+         loadbalance="random" cache="lru" executes="10" actives="10" token="true" />
+    -->
+    
+ 
+</beans>
