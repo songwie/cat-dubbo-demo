@@ -1,4 +1,4 @@
-package com.mallbiz.controller;
+package com.mallbiz.catcommon;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

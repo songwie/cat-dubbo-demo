@@ -19,15 +19,15 @@
 	<import resource="webmvc-config.xml"/>
 	
     <!-- 要引用的服务 -->
-    <!-- -->
+    <!--  -->
     <dubbo:reference interface="com.mallbiz.api.TestRegistryService" id="testRegistryService" >
         <dubbo:method name="hello" async="false" />
-    </dubbo:reference> 
-    
+    </dubbo:reference>
+     
     <!-- 要暴露的服务接口 -->
-    <!-- <dubbo:service interface="com.mallbiz.api.TestRegistryService" ref="testRegistryServiceImpl"
+    <!--  <dubbo:service interface="com.mallbiz.api.TestRegistryService" ref="testRegistryServiceImpl"
          loadbalance="random" cache="lru" executes="10" actives="10" token="true" />
-    -->
+     -->
     
  
 </beans>

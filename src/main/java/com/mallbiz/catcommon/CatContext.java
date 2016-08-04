@@ -1,4 +1,4 @@
-package com.mallbiz.controller;
+package com.mallbiz.catcommon;
 
 import java.util.HashMap;
 import java.util.Map;

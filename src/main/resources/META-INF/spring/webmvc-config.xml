@@ -13,7 +13,7 @@
     <mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			<bean class="com.mallbiz.controller.CatInterceptor"></bean>
+			<bean class="com.mallbiz.catcommon.CatInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
  

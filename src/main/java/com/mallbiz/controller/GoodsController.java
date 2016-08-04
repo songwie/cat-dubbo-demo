@@ -8,6 +8,7 @@ import com.dianping.cat.Cat;
 import com.dianping.cat.Cat.Context;
 import com.dianping.cat.message.Event;
 import com.dianping.cat.message.Transaction;
+import com.mallbiz.catcommon.CatContext;
 
 @Controller("/")
 public class GoodsController {

@@ -1,6 +1,5 @@
 package com.mallbiz.controller;
 
-import org.apache.taglibs.standard.lang.jstl.test.beans.PublicInterface2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +12,12 @@ import com.dianping.cat.Cat.Context;
 import com.dianping.cat.message.Event;
 import com.dianping.cat.message.Transaction;
 import com.mallbiz.api.TestRegistryService;
+import com.mallbiz.catcommon.CatContext;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:/META-INF/spring/applicationContext*.xml")
-public class IndexTest {
+public class CatDubboTest {
 
 	@Autowired
 	private TestRegistryService testRegistryService; 
@@ -27,7 +27,7 @@ public class IndexTest {
 
 	@Test
 	public void indexServer() throws Exception{
-	    Thread.currentThread().sleep(100000);
+	    Thread.currentThread().sleep(10000000);
 	    ProtocolConfig.destroyAll();
 	}
 	
@@ -35,33 +35,36 @@ public class IndexTest {
 	@Test
 	public void testCat() throws Exception{
 		//客户端
-        Transaction t2 = Cat.newTransaction("cross", "cross-server-Transaction");
+        Transaction t = Cat.newTransaction("PigeonCall", "cross-client-Transaction");
 		 
-		Cat.Context context2 = new CatContext();
-		context2.addProperty("testKey", "server");
+		Cat.Context completeEvent = new CatContext();
  
-        Event crossAppEvent2 = Cat.newEvent("PigeonService.app", "cross-myApp");	//clientName
-        Event crossServerEvent2 = Cat.newEvent("PigeonService.client","cross-myClient");	//clientIp
-        crossAppEvent2.setStatus(Event.SUCCESS);
-        crossServerEvent2.setStatus(Event.SUCCESS);
-        crossAppEvent2.complete();
-        crossServerEvent2.complete();
-        t2.addChild(crossAppEvent2);
-        t2.addChild(crossServerEvent2);
+		Event crossAppEvent = Cat.newEvent("PigeonCall.app", "cat-dubbo-web");
+	    Event crossServerEvent = Cat.newEvent("PigeonCall.server", "127.0.0.1");
+	    Event crossPortEvent = Cat.newEvent("PigeonCall.port", "8081");
+	    crossAppEvent.setStatus(Event.SUCCESS);
+	    crossServerEvent.setStatus(Event.SUCCESS);
+	    crossPortEvent.setStatus(Event.SUCCESS);
+	    crossPortEvent.complete();
+	    crossServerEvent.complete();
+	    crossPortEvent.complete();
+	    t.addChild(crossAppEvent);
+	    t.addChild(crossPortEvent);
+	    t.addChild(crossServerEvent);
 	     
+        Cat.logRemoteCallClient(completeEvent);
+		System.err.println("logRemoteCallServer:"+completeEvent);
         
-        String name = testRegistryService.hello(context2.getProperty(Context.ROOT),context2.getProperty(Context.PARENT),context2.getProperty(Context.CHILD));
+        String name = testRegistryService.hello(completeEvent.getProperty(Context.ROOT),
+        		completeEvent.getProperty(Context.PARENT),
+        		completeEvent.getProperty(Context.CHILD));
 	    System.err.println(System.currentTimeMillis()   + ","+ Thread.currentThread() + ","+ name);
 	  
-	    
-	    Cat.logRemoteCallServer(context2);
-		System.err.println("logRemoteCallServer:"+context2);
-
 		 
-	    t2.setStatus(Transaction.SUCCESS);
-	    t2.complete();
+	    t.setStatus(Transaction.SUCCESS);
+	    t.complete();
 	    
-	    Thread.currentThread().sleep(100000);
+	    Thread.currentThread().sleep(10000000);
 	}
 	
 	@Test
