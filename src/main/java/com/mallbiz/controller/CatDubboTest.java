@@ -7,12 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.dubbo.config.ProtocolConfig;
-import com.dianping.cat.Cat;
-import com.dianping.cat.Cat.Context;
-import com.dianping.cat.message.Event;
-import com.dianping.cat.message.Transaction;
 import com.mallbiz.api.TestRegistryService;
-import com.mallbiz.catcommon.CatContext;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,7 +29,7 @@ public class CatDubboTest {
 	@SuppressWarnings("static-access")
 	@Test
 	public void testCat() throws Exception{
-		//客户端
+		/*//客户端
         Transaction t = Cat.newTransaction("PigeonCall", "cross-client-Transaction");
 		 
 		Cat.Context completeEvent = new CatContext();
@@ -63,7 +58,11 @@ public class CatDubboTest {
 		 
 	    t.setStatus(Transaction.SUCCESS);
 	    t.complete();
-	    
+	    */
+		
+		String name = testRegistryService.hello("1","1","2");
+	    System.err.println(System.currentTimeMillis()   + ","+ Thread.currentThread() + ","+ name);
+		
 	    Thread.currentThread().sleep(10000000);
 	}
 	

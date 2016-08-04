@@ -2,17 +2,12 @@ package com.mallbiz.service;
 
 import org.springframework.stereotype.Service;
 
-import com.dianping.cat.Cat;
-import com.dianping.cat.Cat.Context;
-import com.dianping.cat.message.Event;
-import com.dianping.cat.message.Transaction;
 import com.mallbiz.api.TestRegistryService;
-import com.mallbiz.catcommon.CatContext;
 
 @Service("testRegistryServiceImpl")
 public class RegistryServiceImpl implements TestRegistryService {
 	public String hello(String root,String parent,String child)  {
-		
+		/*
 		//服务端
         Transaction t = Cat.newTransaction("PigeonService", "cross-server-Transaction");
 		 
@@ -38,7 +33,7 @@ public class RegistryServiceImpl implements TestRegistryService {
 	     t.setStatus(Transaction.SUCCESS);
 	     t.complete();
 		
-		
+		*/
 		
 		return "hello return ";
 	}
