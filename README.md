@@ -1,6 +1,7 @@
 # 点评cat-dubbo-demo
 
 点评cat监控远程调用链与dubbo集成，可以通过点评CAT监控dubbo服务调用关系。
+详细说明地址：http://songwie.com/articlelist/171
 
 
 点评远程PigeonCall 原理为通过Cat.Context上下文，来传递客户端与服务端的调用关系。
